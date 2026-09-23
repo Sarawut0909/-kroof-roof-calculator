@@ -103,7 +103,7 @@ function buildMulti(){const el=document.createElement('section');el.id='p-multi'
 let mcount=0;function addMulti(){mcount++;const box=document.createElement('div');box.className='multi-block';box.id='mr'+mcount;box.innerHTML=`<div class="multi-row"><b>${mcount}</b><input type="number" inputmode="decimal" placeholder="กว้าง" class="mw"><input type="number" inputmode="decimal" placeholder="ยาว" class="ml"><input type="number" inputmode="decimal" placeholder="กว้างสินค้า" class="mpw"><input type="number" inputmode="decimal" placeholder="ยาวสินค้า" class="mpl"></div><div class="mini-result" id="mres${mcount}">-</div>`;document.getElementById('multiRows').appendChild(box);box.querySelectorAll('input').forEach(x=>x.addEventListener('input',calcMulti))}
 function clearMulti(){document.querySelectorAll('#multiRows input').forEach(x=>x.value='');calcMulti();toast('ล้างข้อมูลแล้ว')}
 function calcMulti(){let total=0,stock=0,scrap=0,sections=0,notes=[];document.querySelectorAll('.multi-block').forEach((r,i)=>{const w=num(r.querySelector('.mw').value),l=num(r.querySelector('.ml').value),pw=num(r.querySelector('.mpw').value),pl=num(r.querySelector('.mpl').value),out=r.querySelector('.mini-result');if(!(w&&l&&pw&&pl)){out.textContent='-';return}sections++;const rows=up(l/pw),full=Math.floor(w/pl),rem=w%pl,cut=rem>0?1:0,used=rows*(full+cut),perCut=rem?Math.floor(pl/rem):0,stockForFull=rows*full,stockForCut=cut?Math.ceil(rows/(perCut||1)):0,st=stockForFull+stockForCut,usedLen=full*pl+rem,sc=st*pl-usedLen*rows;total+=used;stock+=st;scrap+=Math.max(0,sc);out.innerHTML=`${rows} แนว × (${full} ชิ้นเต็ม${cut?' + 1 ชิ้นตัด':''}) = <b>${used} ชิ้น</b> • สต๊อก ${st} ชิ้น • เศษ ${fmt(Math.max(0,sc),0)} ซม.`;notes.push(`ส่วน ${i+1}: ${rows} แนว, ${full} ชิ้นเต็ม/แนว`+(cut?`, ชิ้นตัด ${fmt(rem,1)} ซม.`:''))});document.getElementById('mtotal').textContent=fmt(total,0);document.getElementById('mstock').textContent=fmt(stock,0);document.getElementById('mscrap').textContent=fmt(scrap,0)+' ซม.';document.getElementById('msections').textContent=sections;document.getElementById('mnotes').innerHTML=notes.length?notes.join('<br>'):'กรอกข้อมูลเพื่อคำนวณ'}
-<section id="p-roof2" class="panel">
+app.insertAdjacentHTML('beforeend', `<section id="p-roof2" class="panel">
 
 <section class="hero">
   <div class="ey">K-ROOF CALCULATOR V7</div>
@@ -181,8 +181,7 @@ function calcMulti(){let total=0,stock=0,scrap=0,sections=0,notes=[];document.qu
   </div>
 </div>
 
-</section>
-
+</section>`);
 (function initRoof2V7(){
 
 const STOCK=[3,3.5,4,4.5,5,5.5,6,6.5,7];
