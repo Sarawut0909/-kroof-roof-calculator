@@ -55,7 +55,7 @@ const products={
  glacia:{name:'VG Glacia Roof',sub:'หน้ากว้าง 0.334 ม.',width:.334,lengths:[3,3.5,4,4.5,5,5.5,6,6.5,7],dw:6,dl:2.9},
  jroof:{name:'JROOF / Mini Gold',sub:'แผ่นหน้ากว้าง 1.00 ม.',width:1,lengths:[3,4,5,6,8,9,10,11,12],dw:6,dl:5.8}
 };
-const tabs=[['snow','SnowRoof'],['roofy','RoofyRoof'],['glacia','VG Glacia'],['jroof','JROOF / MiniGold'],['multi','หลายส่วน'],['roof2','หลังคาจั่ว'],['help','วิธีติดตั้ง']];
+const tabs=[['snow','SnowRoof'],['roofy','RoofyRoof'],['glacia','VG Glacia'],['jroof','JROOF / MiniGold'],['multi','หลายส่วน'],['roof2','คำนวนสันตะเข้'],['help','วิธีติดตั้ง']];
 const tabsEl=document.getElementById('tabs'),app=document.getElementById('app');
 tabs.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t[1];b.onclick=()=>show(t[0]);if(i===0)b.className='active';tabsEl.appendChild(b)});
 function show(id){document.querySelectorAll('.tabs button').forEach((b,i)=>b.classList.toggle('active',tabs[i][0]===id));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('p-'+id)?.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
